@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>สตูดิโอสร้างสรรค์ทำนองไทย-สากล | ศูนย์การเรียนรู้ดนตรีดิจิทัล</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700;800&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #78350f;
+      --accent: #d97706;
+      --bg: #fffbeb;
+      --card: #ffffff;
+      --text: #1e293b;
+      --border: #fde68a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background: linear-gradient(180deg, #fffbeb 0%, #f8fafc 100%);
+      color: var(--text);
+      padding: 20px 14px 60px;
+      min-height: 100vh;
+    }
+
+    .container { max-width: 920px; margin: 0 auto; }
+
+    .top-nav {
+      margin-bottom: 16px;
+    }
+    .back-link {
+      display: inline-block;
+      text-decoration: none;
+      font-family: 'Prompt', sans-serif;
+      font-weight: 600;
+      color: var(--primary);
+      background: #fef3c7;
+      padding: 8px 16px;
+      border-radius: 10px;
+    }
+
+    .header-card {
+      background: linear-gradient(135deg, #78350f 0%, #b45309 100%);
+      color: white;
+      border-radius: 24px;
+      padding: 28px 24px;
+      text-align: center;
+      margin-bottom: 24px;
+      box-shadow: 0 12px 28px rgba(120, 53, 15, 0.25);
+    }
+    .header-card h1 { font-family: 'Prompt', sans-serif; font-size: 1.85rem; margin-bottom: 6px; }
+    .header-card p { opacity: 0.92; font-size: 1rem; }
+
+    .card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 22px;
+      border: 1.5px solid var(--border);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+    }
+
+    h2 {
+      font-family: 'Prompt', sans-serif;
+      color: var(--primary);
+      font-size: 1.25rem;
+      margin-bottom: 14px;
+    }
+
+    /* Interactive Note Converter */
+    .note-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .note-pad {
+      background: #fffbeb;
+      border: 2px solid #f59e0b;
+      border-radius: 16px;
+      padding: 14px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.1s, background 0.15s;
+    }
+    .note-pad:active { transform: scale(0.95); background: #fde68a; }
+    .note-thai { font-family: 'Prompt', sans-serif; font-size: 1.6rem; font-weight: 800; color: #b45309; }
+    .note-west { font-family: 'Prompt', sans-serif; font-size: 0.95rem; font-weight: 600; color: #475569; }
+
+    /* Controls */
+    .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 18px;
+      background: #f8fafc;
+      padding: 14px;
+      border-radius: 14px;
+    }
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Prompt', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    select, input[type="range"] {
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      font-family: 'Sarabun', sans-serif;
+      font-size: 0.95rem;
+    }
+
+    /* 8-Beat Sequencer */
+    .sequencer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .beat-slot {
+      background: #f8fafc;
+      border: 2px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 10px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .beat-slot.active {
+      border-color: #d97706;
+      background: #fef3c7;
+      transform: scale(1.04);
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25);
+    }
+    .beat-num {
+      font-family: 'Prompt', sans-serif;
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-bottom: 6px;
+    }
+    .beat-select {
+      width: 100%;
+      padding: 6px;
+      font-family: 'Prompt', sans-serif;
+      font-weight: 600;
+      border-radius: 8px;
+      border: 1px solid #94a3b8;
+      background: white;
+      text-align: center;
+    }
+
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn {
+      font-family: 'Prompt', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 12px 22px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      color: white;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.9; }
+    .btn-play { background: #059669; flex: 1; min-width: 180px; }
+    .btn-sample { background: #2563eb; }
+    .btn-clear { background: #64748b; }
+
+    /* Local Music Section */
+    .local-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+    }
+    .local-item {
+      background: #fffbeb;
+      padding: 16px;
+      border-radius: 14px;
+      border-left: 4px solid #d97706;
+    }
+    .local-item h3 {
+      font-family: 'Prompt', sans-serif;
+      font-size: 1.05rem;
+      color: #78350f;
+      margin-bottom: 6px;
+    }
+    .local-item p { font-size: 0.92rem; color: #475569; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="top-nav">
+    <a href="index.html" class="back-link">⬅ กลับหน้าศูนย์การเรียนรู้ดนตรี</a>
+  </div>
+
+  <header class="header-card">
+    <h1>🎹 สตูดิโอสร้างสรรค์ทำนองไทย-สากล</h1>
+    <p>เรียนรู้การเทียบโน้ต 5 เสียง (Pentatonic) แต่งทำนองอย่างง่าย และเชื่อมโยงดนตรีพื้นบ้าน</p>
+  </header>
+
+  <!-- ส่วนที่ 1: ตารางเทียบโน้ตไทย-สากล -->
+  <section class="card">
+    <h2>1. ตารางเทียบโน้ตระบบ 5 เสียง (คลิกเพื่อฟังเสียง)</h2>
+    <p style="color:#475569; font-size:0.95rem;">ดนตรีไทยและดนตรีพื้นบ้านนิยมใช้กลุ่มโน้ต 5 เสียง (ด ร ม ซ ล) ซึ่งเมื่อนำมาเรียบเรียงเป็นทำนองจะฟังไพเราะและไม่เพี้ยน</p>
+    <div class="note-buttons">
+      <div class="note-pad" onclick="playNote(261.63)">
+        <div class="note-thai">ด (โด)</div>
+        <div class="note-west">C4 (สากล)</div>
+      </div>
+      <div class="note-pad" onclick="playNote(293.66)">
+        <div class="note-thai">ร (เร)</div>
+        <div class="note-west">D4 (สากล)</div>
+      </div>
+      <div class="note-pad" onclick="playNote(329.63)">
+        <div class="note-thai">ม (มี)</div>
+        <div class="note-west">E4 (สากล)</div>
+      </div>
+      <div class="note-pad" onclick="playNote(392.00)">
+        <div class="note-thai">ซ (ซอล)</div>
+        <div class="note-west">G4 (สากล)</div>
+      </div>
+      <div class="note-pad" onclick="playNote(440.00)">
+        <div class="note-thai">ล (ลา)</div>
+        <div class="note-west">A4 (สากล)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ส่วนที่ 2: กระดานแต่งทำนอง 8 จังหวะ -->
+  <section class="card">
+    <h2>2. กระดานแต่งทำนอง 8 จังหวะ (Melody Sequencer)</h2>
+
+    <div class="controls-row">
+      <div class="control-group">
+        <label for="instrumentSelect">เลือกเสียงเครื่องดนตรี:</label>
+        <select id="instrumentSelect">
+          <option value="piano">🎹 เปียโนสากล</option>
+          <option value="ranat">🪵 ระนาดเอก (สังเคราะห์)</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label for="tempoRange">ความเร็ว (Tempo): <span id="tempoVal">110</span> BPM</label>
+        <input type="range" id="tempoRange" min="70" max="160" value="110" oninput="document.getElementById('tempoVal').textContent=this.value">
+      </div>
+    </div>
+
+    <div class="sequencer-grid" id="sequencerGrid"></div>
+
+    <div class="action-buttons">
+      <button class="btn btn-play" onclick="playSequence()">▶ เล่นทำนองของฉัน</button>
+      <button class="btn btn-sample" onclick="loadSample()">🎵 โหลดทำนองตัวอย่าง</button>
+      <button class="btn btn-clear" onclick="clearSequence()">🔄 ล้างกระดาน</button>
+    </div>
+  </section>
+
+  <!-- ส่วนที่ 3: เชื่อมโยงดนตรีไทยและพื้นบ้านภาคตะวันออก -->
+  <section class="card">
+    <h2>3. มุมความรู้: ดนตรีไทยและดนตรีพื้นบ้านภาคตะวันออก</h2>
+    <div class="local-grid">
+      <div class="local-item">
+        <h3>🪵 ระนาดเอก</h3>
+        <p>เครื่องดนตรีประเภทตีทำนองหลักในวงปี่พาทย์ ทำจากไม้ไผ่บงหรือไม้ชิงชัน ให้เสียงกังวานใสชัดเจน</p>
+      </div>
+      <div class="local-item">
+        <h3>⭕ ฆ้องวงใหญ่</h3>
+        <p>เครื่องดนตรีหลักที่คอยเดินทำนองพื้นฐานและกำหนดโครงสร้างของเพลงไทย ให้เสียงทุ้มนุ่มนวล</p>
+      </div>
+      <div class="local-item">
+        <h3>🥁 กลองยาว</h3>
+        <p>เครื่องดนตรีประกอบจังหวะที่โดดเด่นในขบวนแห่และประเพณีท้องถิ่นภาคตะวันออก สร้างความสนุกสนานคึกคัก</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  let audioCtx = null;
+
+  const noteFreqs = {
+    "rest": 0,
+    "C4": 261.63,
+    "D4": 293.66,
+    "E4": 329.63,
+    "G4": 392.00,
+    "A4": 440.00,
+    "C5": 523.25
+  };
+
+  function initAudio() {
+    if (!audioCtx) {
+      audioCtx = new AudioContext();
+    }
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+  }
+
+  function playNote(freq) {
+    if (!freq || freq === 0) return;
+    initAudio();
+
+    const instrument = document.getElementById("instrumentSelect").value;
+    const now = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    if (instrument === "ranat") {
+      // จำลองเสียงไม้ระนาด (เคาะสั้น คม ชัด)
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(freq, now);
+      gain.gain.setValueAtTime(0.6, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.26);
+    } else {
+      // จำลองเสียงเปียโน (นุ่มนวล กังวาน)
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq, now);
+      gain.gain.setValueAtTime(0.5, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.56);
+    }
+  }
+
+  // สร้างช่องแต่งทำนอง 8 จังหวะ
+  const grid = document.getElementById("sequencerGrid");
+  const optionsHTML = `
+    <option value="rest">- พัก -</option>
+    <option value="C4">ด (C)</option>
+    <option value="D4">ร (D)</option>
+    <option value="E4">ม (E)</option>
+    <option value="G4">ซ (G)</option>
+    <option value="A4">ล (A)</option>
+    <option value="C5">ดํ (C5)</option>
+  `;
+
+  for (let i = 1; i <= 8; i++) {
+    const slot = document.createElement("div");
+    slot.className = "beat-slot";
+    slot.id = `slot-${i}`;
+    slot.innerHTML = `
+      <div class="beat-num">จังหวะที่ ${i}</div>
+      <select class="beat-select" id="beat-${i}" onchange="playNote(noteFreqs[this.value])">
+        ${optionsHTML}
+      </select>
+    `;
+    grid.appendChild(slot);
+  }
+
+  let isPlaying = false;
+
+  function playSequence() {
+    if (isPlaying) return;
+    isPlaying = true;
+    initAudio();
+
+    const bpm = parseInt(document.getElementById("tempoRange").value);
+    const stepMs = (60 / bpm) * 1000;
+
+    let step = 1;
+    function nextStep() {
+      document.querySelectorAll(".beat-slot").forEach(el => el.classList.remove("active"));
+
+      if (step > 8) {
+        isPlaying = false;
+        return;
+      }
+
+      const slot = document.getElementById(`slot-${step}`);
+      const val = document.getElementById(`beat-${step}`).value;
+      slot.classList.add("active");
+      playNote(noteFreqs[val]);
+
+      step++;
+      setTimeout(nextStep, stepMs);
+    }
+
+    nextStep();
+  }
+
+  function loadSample() {
+    const sample = ["C4", "D4", "E4", "G4", "A4", "G4", "E4", "C4"];
+    sample.forEach((note, idx) => {
+      document.getElementById(`beat-${idx + 1}`).value = note;
+    });
+  }
+
+  function clearSequence() {
+    for (let i = 1; i <= 8; i++) {
+      document.getElementById(`beat-${i}`).value = "rest";
+    }
+  }
+
+  // โหลดทำนองตัวอย่างไว้ตอนเปิดหน้าเว็บ
+  loadSample();
+</script>
+
+</body>
+</html>

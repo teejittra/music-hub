@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ศูนย์การเรียนรู้ดนตรีดิจิทัล (Digital Music Learning Hub)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700;800&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --accent: #f59e0b;
+      --bg: #f8fafc;
+      --card: rgba(255, 255, 255, 0.92);
+      --text: #1e293b;
+      --muted: #64748b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background: radial-gradient(circle at top left, #dbeafe, transparent 40%),
+                  radial-gradient(circle at bottom right, #fef3c7, transparent 40%),
+                  #f1f5f9;
+      color: var(--text);
+      min-height: 100vh;
+      padding: 30px 16px 60px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+      color: white;
+      border-radius: 28px;
+      padding: 40px 28px;
+      text-align: center;
+      margin-bottom: 32px;
+      box-shadow: 0 20px 40px rgba(30, 58, 138, 0.22);
+      border-bottom: 5px solid var(--accent);
+    }
+
+    .hero h1 {
+      font-family: 'Prompt', sans-serif;
+      font-size: 2.1rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      opacity: 0.9;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      border-radius: 22px;
+      padding: 26px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 35px rgba(15, 23, 42, 0.12);
+    }
+
+    .icon-box {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+    }
+
+    .bg-blue { background: #dbeafe; color: #1d4ed8; }
+    .bg-amber { background: #fef3c7; color: #b45309; }
+    .bg-emerald { background: #d1fae5; color: #047857; }
+    .bg-purple { background: #ede9fe; color: #6d28d9; }
+
+    .badge {
+      display: inline-block;
+      font-family: 'Prompt', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: #f1f5f9;
+      color: var(--muted);
+      margin-bottom: 10px;
+      width: fit-content;
+    }
+
+    .card h2 {
+      font-family: 'Prompt', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #475569;
+      margin-bottom: 20px;
+      line-height: 1.55;
+    }
+
+    .btn {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      font-family: 'Prompt', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 12px 18px;
+      border-radius: 12px;
+      color: white;
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      transition: opacity 0.2s;
+    }
+
+    .btn:hover { opacity: 0.9; }
+    .btn-amber { background: linear-gradient(135deg, #d97706, #f59e0b); }
+    .btn-emerald { background: linear-gradient(135deg, #059669, #10b981); }
+    .btn-purple { background: linear-gradient(135deg, #6d28d9, #8b5cf6); }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header class="hero">
+    <h1>🎵 ศูนย์การเรียนรู้ดนตรีดิจิทัล</h1>
+    <p>แหล่งเรียนรู้ทักษะทางดนตรีสากลและดนตรีไทยครบวงจร เพื่อการฝึกปฏิบัติ การสร้างสรรค์ และการประเมินผล (ไม่จำกัดระดับชั้น)</p>
+  </header>
+
+  <main class="grid">
+    <!-- โมดูล 1: ทฤษฎีดนตรีสากล -->
+    <article class="card">
+      <div>
+        <div class="icon-box bg-blue">🎼</div>
+        <span class="badge">ทฤษฎีดนตรีสากลพื้นฐาน</span>
+        <h2>การอ่าน-เขียนโน้ต และสัญญาณมือโคดาย</h2>
+        <p>ทบทวนความรู้เรื่องบรรทัด 5 เส้น กุญแจซอล สัญลักษณ์ทางดนตรี สัญญาณมือโคดาย (Kodály) พร้อมแบบทดสอบวัดความเข้าใจ</p>
+      </div>
+      <a href="https://lambent-biscochitos-de66fe.netlify.app/" target="_blank" class="btn">เข้าสู่บทเรียนและแบบทดสอบ ➔</a>
+    </article>
+
+    <!-- โมดูล 2: ฝึกเขียนโน้ตและเปียโน -->
+    <article class="card">
+      <div>
+        <div class="icon-box bg-emerald">🎹</div>
+        <span class="badge">ฝึกทักษะปฏิบัติ</span>
+        <h2>ระบบฝึกเขียนโน้ตและฟังเสียงเปียโน</h2>
+        <p>ฝึกวางตัวโน้ตบนบรรทัด 5 เส้น จัดอัตราจังหวะ 4 ห้องเพลง และทดลองฟังเสียงเปียโนจำลองได้ทันทีผ่านหน้าจอ</p>
+      </div>
+      <a href="https://silly-taffy-5688a0.netlify.app/" target="_blank" class="btn btn-emerald">เปิดกระดานฝึกเขียนโน้ต ➔</a>
+    </article>
+
+    <!-- โมดูล 3: สตูดิโอแต่งทำนองไทย-สากล (เชื่อมไปไฟล์ melody-studio.html) -->
+    <article class="card">
+      <div>
+        <div class="icon-box bg-amber">✨</div>
+        <span class="badge">สร้างสรรค์และบูรณาการ</span>
+        <h2>สตูดิโอสร้างสรรค์ทำนองไทย-สากล</h2>
+        <p>เทียบโน้ตไทย-สากล (ด ร ม ซ ล) แต่งทำนอง 8 จังหวะ เลือกฟังเสียงเปียโนหรือระนาดเอก พร้อมความรู้ดนตรีพื้นบ้าน</p>
+      </div>
+      <a href="melody-studio.html" class="btn btn-amber">เข้าสู่สตูดิโอแต่งทำนอง ➔</a>
+    </article>
+
+    <!-- โมดูล 4: แบบประเมินความพึงพอใจ -->
+    <article class="card">
+      <div>
+        <div class="icon-box bg-purple">📊</div>
+        <span class="badge">ประเมินผลและสะท้อนคิด</span>
+        <h2>แบบประเมินความพึงพอใจ</h2>
+        <p>ร่วมประเมินความพึงพอใจและให้ข้อเสนอแนะการใช้งานระบบการเรียนรู้ดนตรีดิจิทัล เพื่อนำไปพัฒนาต่อยอด</p>
+      </div>
+      <a href="https://majestic-sopapillas-e1f341.netlify.app/" target="_blank" class="btn btn-purple">ทำแบบประเมินความพึงพอใจ ➔</a>
+    </article>
+  </main>
+
+  <footer>
+    พัฒนาสื่อการเรียนรู้ดนตรีดิจิทัล โดย ครูธีร์จิตรา จั่นหยวก (ครูแบรนด์)
+  </footer>
+</div>
+
+</body>
+</html>
